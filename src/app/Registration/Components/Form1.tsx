@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React from 'react'
 
-function Form1( props:any) {
+function Form1( props) {
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -50,8 +50,14 @@ function Form1( props:any) {
             ),
         }}
         /><br/>
-     <input type='file'  style={{  marginTop: '3vh' }}  value={props.usereImage}/><br/>
-     <p  style={{width:'22.5vw', marginTop:'1vh'}}>  what type of account are you signing up for ? </p><br/>
+{/* <input
+  type="file"
+  style={{ marginTop: '3vh' }}
+  
+  onChange={(event) => props.setUserImage(event?.target?.files?.[0])}
+/> */}
+
+<br />     <p  style={{width:'22.5vw', marginTop:'1vh'}}>  what type of account are you signing up for ? </p><br/>
         <Button style={{width:'22.5vw', marginTop:'1vh',background:'#298100'}} variant='contained' onClick={() => props.setWhichForm(2)}>Client</Button><br/>
         <Button style={{width:'22.5vw', marginTop:'4vh',background:'#f88503'}} variant='contained' onClick={() => props.setWhichForm(3)}>Handy Man</Button>
 

@@ -23,12 +23,15 @@ function page() {
       password: ''
     }
   )
-  const [usereImage,setUserImage]=React.useState()
+  const [usereImage,setUserImage]=React.useState('')
   const [qualificationImage,setQualificationImage]=React.useState(null)
   const handleChange = (e) => {
     setUserRegistrationData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
- 
+ const ProfilePicChange=()=>{
+
+console.log(usereImage)
+ }
   const handleSubmit = () => {
     console.log(userRegistrationData)
   }
@@ -41,7 +44,7 @@ function page() {
       
       </div>
       <div className={`w-[45vw] h-[50vh] ${whichForm === 1 ? 'block' : 'hidden'} relative top-[10vh] left-[5vw] mb-[5vw]`} >  
-        <Form1 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} usereImage={usereImage} setUserImage={setUserImage} />
+        <Form1 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} usereImage={usereImage} setUserImage={setUserImage}/>
         </div >
         <div className= {`w-[45vw] h-[50vh] ${whichForm === 2 ? 'block' : 'hidden'}  relative top-[20vh] left-[5vw] mb-[5vw] `}>
         <Form2 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} usereImage={usereImage} setUserImage={setUserImage} handleSubmit={handleSubmit}/>
