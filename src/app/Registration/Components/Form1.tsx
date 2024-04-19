@@ -1,16 +1,20 @@
-import { Button, InputLabel, TextField } from '@mui/material'
+import { Button, Checkbox, FormControlLabel, InputLabel, Radio, RadioGroup, TextField } from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React from 'react'
 
-function Form1( props) {
-    const [showPassword, setShowPassword] = React.useState(false);
+function Form1( props:any) {
+    const [showPassword, setShowPassword] = React.useState<Boolean>(false);
+  
+
+    
+  
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
       };
    
- 
+    
   return (
     <div>
         <p className='font-semibold text-5xl'>Registration</p>
@@ -50,16 +54,15 @@ function Form1( props) {
             ),
         }}
         /><br/>
-{/* <input
-  type="file"
-  style={{ marginTop: '3vh' }}
-  
-  onChange={(event) => props.setUserImage(event?.target?.files?.[0])}
-/> */}
-
 <br />     <p  style={{width:'22.5vw', marginTop:'1vh'}}>  what type of account are you signing up for ? </p><br/>
-        <Button style={{width:'22.5vw', marginTop:'1vh',background:'#298100'}} variant='contained' onClick={() => props.setWhichForm(2)}>Client</Button><br/>
-        <Button style={{width:'22.5vw', marginTop:'4vh',background:'#f88503'}} variant='contained' onClick={() => props.setWhichForm(3)}>Handy Man</Button>
+  <RadioGroup value={props.userRegistrationData.userType} name='userType' onChange={props.handleChange}>
+      <FormControlLabel value="Client" control={<Radio />} label="Client" />
+      <FormControlLabel value="Handy Man" control={<Radio />} label="Handy Man" />
+    </RadioGroup>
+
+
+          
+        <Button style={{width:'22.5vw', marginTop:'4vh',background:'#f88503'}} variant='contained' onClick={() => props.setWhichForm(2)}>Next </Button>
 
     </div>
   )

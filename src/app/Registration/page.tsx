@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { Paper } from '@mui/material'
 import Form1 from './Components/Form1'
 import Form2 from './Components/Form2'
-import Form3 from './Components/Form3'
+import { connect } from 'react-redux';
+import { RegisterUser } from '../Actions/Registration';
 
-
-function page() {
+function page({ RegisterUser }) {
   const [whichForm,setWhichForm]=React.useState(1)
   const [userRegistrationData,setUserRegistrationData]=React.useState(
     {
@@ -16,24 +16,31 @@ function page() {
       Middlename: '',
       Lastname: '',
       email: '',
-      activated: false,
       HomeLocation: '',
       PhoneNumber: '',
       DateoFBirth: '',
-      password: ''
+      password: '',
+      userType:''
     }
   )
-  const [usereImage,setUserImage]=React.useState('')
+ console.log(userRegistrationData)
   const [qualificationImage,setQualificationImage]=React.useState(null)
+  const [PropfilePicture,setPropfilePicture]=React.useState<File>()
   const handleChange = (e) => {
     setUserRegistrationData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
- const ProfilePicChange=()=>{
-
-console.log(usereImage)
+ const setUserImage=(file:File)=>{
+  console.log(file)
+  setPropfilePicture(file)
+  console.log(PropfilePicture)
+ }
+ const user={
+  ...userRegistrationData,
+  PropfilePicture
  }
   const handleSubmit = () => {
-    console.log(userRegistrationData)
+    console.log(user)
+    RegisterUser(user)
   }
   return (
     <div className='bg-orange-100 h-[100vh] '>
@@ -44,19 +51,21 @@ console.log(usereImage)
       
       </div>
       <div className={`w-[45vw] h-[50vh] ${whichForm === 1 ? 'block' : 'hidden'} relative top-[10vh] left-[5vw] mb-[5vw]`} >  
-        <Form1 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} usereImage={usereImage} setUserImage={setUserImage}/>
+        <Form1 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData}  />
         </div >
         <div className= {`w-[45vw] h-[50vh] ${whichForm === 2 ? 'block' : 'hidden'}  relative top-[20vh] left-[5vw] mb-[5vw] `}>
-        <Form2 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} usereImage={usereImage} setUserImage={setUserImage} handleSubmit={handleSubmit}/>
+        <Form2 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} setUserImage={setUserImage} handleSubmit={handleSubmit}/>
       </div >
-      <div className= {`w-[45vw] h-[50vh] ${whichForm === 3 ? 'block' : 'hidden'}  relative top-[20vh] left-[5vw] mb-[5vw] `}>
-        <Form3 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} usereImage={usereImage} setUserImage={setUserImage} qualificationImage={qualificationImage} setQualificationImage={setQualificationImage} handleSubmit={handleSubmit}/>
-      </div >
+      
 
       
     </Paper>
     </div>
   )
 }
+const mapStateToProps = (state:any) => ({
 
-export default page
+});
+
+export default connect(mapStateToProps, { RegisterUser })(page)
+
