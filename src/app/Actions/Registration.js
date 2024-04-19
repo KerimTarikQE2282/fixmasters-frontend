@@ -55,14 +55,15 @@ import {
 //     }
 //   };
 export const RegisterUser=(user)=>async dispatch=>{
-    console.log('from action',user)
+    console.log( 'from action', user)
  const config = {
   headers: {
     'Content-Type': 'multipart/form-data',
   },
 }; 
 
-   const formData = new FormData();
+if(user.userType='Client'){
+const formData = new FormData();
      formData.append('Firstname',user.Firstname);
      formData.append('Middlename',user.Middlename);
      formData.append('Lastname',user.Lastname);
@@ -72,12 +73,7 @@ export const RegisterUser=(user)=>async dispatch=>{
      formData.append('userType',user.userType);
      formData.append('PropfilePicture',user.PropfilePicture);
    
-   console.log(formData)
-
-     
-
-    
-     try{
+   try{
      
       const res=await axios.post('http://127.0.0.1:8000/api/Employee-create/',formData,config)
      
@@ -92,6 +88,34 @@ export const RegisterUser=(user)=>async dispatch=>{
       })
       console.log('registrations error',err)
      }
+}
+   else if(user.userType='Handy Man'){
+    const formData = new FormData();
+    formData.append('Firstname',user.Firstname);
+    formData.append('Middlename',user.Middlename);
+    formData.append('Lastname',user.Lastname);
+    formData.append('email',user.email);
+    formData.append('DateoFBirth',user.DateoFBirth);
+    formData.append('password',user.password);
+    formData.append('userType',user.userType);
+    formData.append('PropfilePicture',user.PropfilePicture);
+    formData.append('ProficiencyDocuments',user.ProficiencyDocuments);
+    try{
+    
+     const res=await axios.post('http://127.0.0.1:8000/api/Employee-create/',formData,config)
+    
+     dispatch({
+       type: USER_CREATE_SUCCESS,
+       payload:res.data
+     })
+    }
+    catch(err){
+     dispatch({
+       type: USER_CREATE_FAIL,
+     })
+     console.log('registrations error',err)
+    }
+   }
 
 
   }

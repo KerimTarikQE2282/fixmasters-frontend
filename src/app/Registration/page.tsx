@@ -20,23 +20,27 @@ function page({ RegisterUser }) {
       PhoneNumber: '',
       DateoFBirth: '',
       password: '',
-      userType:''
+      userType:'',
+      
     }
   )
  console.log(userRegistrationData)
-  const [qualificationImage,setQualificationImage]=React.useState(null)
+  const [qualificationImage,setQualificationImage]=React.useState<File>(null)
   const [PropfilePicture,setPropfilePicture]=React.useState<File>()
   const handleChange = (e) => {
     setUserRegistrationData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
  const setUserImage=(file:File)=>{
-  console.log(file)
   setPropfilePicture(file)
-  console.log(PropfilePicture)
+}
+ const setqualificationImage=(file:File)=>{
+  setQualificationImage(file)
  }
+ console.log(userRegistrationData,PropfilePicture,qualificationImage)
  const user={
   ...userRegistrationData,
-  PropfilePicture
+  PropfilePicture,
+  qualificationImage
  }
   const handleSubmit = () => {
     console.log(user)
@@ -54,7 +58,7 @@ function page({ RegisterUser }) {
         <Form1 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData}  />
         </div >
         <div className= {`w-[45vw] h-[50vh] ${whichForm === 2 ? 'block' : 'hidden'}  relative top-[20vh] left-[5vw] mb-[5vw] `}>
-        <Form2 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} setUserImage={setUserImage} handleSubmit={handleSubmit}/>
+        <Form2 setWhichForm={setWhichForm} userRegistrationData={userRegistrationData} handleChange={handleChange} setUserRegistrationData={setUserRegistrationData} setUserImage={setUserImage} setqualificationImage={setqualificationImage} handleSubmit={handleSubmit}/>
       </div >
       
 

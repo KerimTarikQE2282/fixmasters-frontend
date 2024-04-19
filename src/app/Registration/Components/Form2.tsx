@@ -6,8 +6,9 @@ import { RegisterUser } from '../../Actions/Registration';
 function Form2(props:any) {
   const [type,setType]=React.useState<String>('client')
   const [file,setFile]=React.useState<File|null>()
+  const [qualificationDocuments,setqualificationDocuments]=React.useState<File|null>()
   props.setUserImage(file)
-  console.log('from form 2',props.userRegistrationData)
+  props.setqualificationImage(qualificationDocuments)
   return (
     <div>
         <p className='font-semibold text-5xl'>Registration</p>
@@ -26,8 +27,9 @@ function Form2(props:any) {
             <input
               type="file"
               name="file"
-              onChange={(e) => setFile(e?.target?.files[0])}
+              onChange={(e) => setqualificationDocuments(e?.target?.files)}
               className="mt-[4vh]"
+              multiple
             /><br/>
           </div>
         )}
