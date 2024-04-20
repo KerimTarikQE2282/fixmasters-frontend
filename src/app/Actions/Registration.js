@@ -69,13 +69,14 @@ const formData = new FormData();
      formData.append('Lastname',user.Lastname);
      formData.append('email',user.email);
      formData.append('DateoFBirth',user.DateoFBirth);
-     formData.append('password',user.password);
+     formData.append('password',user.password);  
+     formData.append('PhoneNumber',user.PhoneNumber);
+     formData.append('UserImage',user.PropfilePicture);
      formData.append('userType',user.userType);
-     formData.append('PropfilePicture',user.PropfilePicture);
-   
+     
    try{
      
-      const res=await axios.post('http://127.0.0.1:8000/api/Employee-create/',formData,config)
+      const res=await axios.post('http://localhost:3001/api/v1/CustomerAuth/RegisterCustomer',formData,config)
      
       dispatch({
         type: USER_CREATE_SUCCESS,
