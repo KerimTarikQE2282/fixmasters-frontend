@@ -3,7 +3,10 @@ import { Button, TextField } from '@mui/material'
 import React from 'react'
 import { connect } from 'react-redux';
 import { RegisterUser } from '../../Actions/Registration';
+
+
 function Form2(props:any) {
+
   const [type,setType]=React.useState<String>('client')
   const [file,setFile]=React.useState<File|null>()
   const [qualificationDocuments,setqualificationDocuments]=React.useState<File|null>()

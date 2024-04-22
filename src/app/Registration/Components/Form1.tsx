@@ -56,8 +56,9 @@ function Form1( props:any) {
         /><br/>
 <br />     <p  style={{width:'22.5vw', marginTop:'1vh'}}>  what type of account are you signing up for ? </p><br/>
   <RadioGroup value={props.userRegistrationData.userType} name='userType' onChange={props.handleChange}>
+  <FormControlLabel value="Handy Man" control={<Radio />} label="Handy Man" />
       <FormControlLabel value="Client" control={<Radio />} label="Client" />
-      <FormControlLabel value="Handy Man" control={<Radio />} label="Handy Man" />
+     
     </RadioGroup>
 
 

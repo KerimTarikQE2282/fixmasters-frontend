@@ -24,24 +24,34 @@ function page({ RegisterUser }) {
       
     }
   )
- console.log(userRegistrationData)
-  const [qualificationImage,setQualificationImage]=React.useState<File>(null)
+
+  const [ProficiencyDocuments,setProficiencyDocuments]=React.useState<File>(null)
   const [PropfilePicture,setPropfilePicture]=React.useState<File>()
   const handleChange = (e) => {
-    setUserRegistrationData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if(e.target.name !='userType'){
+      setUserRegistrationData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    }
+    else{
+      setUserRegistrationData((prev) => ({
+        ...prev,
+        userType: e.target.value
+      }));
+    }
+   
   };
  const setUserImage=(file:File)=>{
   setPropfilePicture(file)
 }
  const setqualificationImage=(file:File)=>{
-  setQualificationImage(file)
+  setProficiencyDocuments(file)
  }
- console.log(userRegistrationData,PropfilePicture,qualificationImage)
+//  console.log(userRegistrationData,PropfilePicture,qualificationImage)
  const user={
   ...userRegistrationData,
   PropfilePicture,
-  qualificationImage
+  ProficiencyDocuments
  }
+ console.log(user)
   const handleSubmit = () => {
     console.log(user)
     RegisterUser(user)

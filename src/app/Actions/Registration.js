@@ -55,14 +55,15 @@ import {
 //     }
 //   };
 export const RegisterUser=(user)=>async dispatch=>{
-    console.log( 'from action', user)
+    console.log( 'from action', user.ProficiencyDocuments)
  const config = {
   headers: {
     'Content-Type': 'multipart/form-data',
   },
 }; 
 
-if(user.userType='Client'){
+if(user.userType=='Client'){
+  console.log('registering Customer')
 const formData = new FormData();
      formData.append('Firstname',user.Firstname);
      formData.append('Middlename',user.Middlename);
@@ -90,20 +91,27 @@ const formData = new FormData();
       console.log('registrations error',err)
      }
 }
-   else if(user.userType='Handy Man'){
+   else if(user.userType=='Handy Man'){
+    const ProficiencyPictures=user.ProficiencyDocuments
+    const ReadyProficientyPictures=[...ProficiencyPictures]
+    console.log(ReadyProficientyPictures)
     const formData = new FormData();
+    
     formData.append('Firstname',user.Firstname);
     formData.append('Middlename',user.Middlename);
     formData.append('Lastname',user.Lastname);
     formData.append('email',user.email);
     formData.append('DateoFBirth',user.DateoFBirth);
+    formData.append('PhoneNumber',user.PhoneNumber);
     formData.append('password',user.password);
     formData.append('userType',user.userType);
-    formData.append('PropfilePicture',user.PropfilePicture);
-    formData.append('ProficiencyDocuments',user.ProficiencyDocuments);
+    formData.append('UserImage',user.PropfilePicture);
+    for (let i = 0; i < ReadyProficientyPictures.length; i++) {
+      formData.append('DocumentsOfProficiency', ReadyProficientyPictures[i]);
+    }
     try{
     
-     const res=await axios.post('http://127.0.0.1:8000/api/Employee-create/',formData,config)
+     const res=await axios.post('http://localhost:3001/api/v1/MerchantAuth/RegisterMerchant',formData,config)
     
      dispatch({
        type: USER_CREATE_SUCCESS,
