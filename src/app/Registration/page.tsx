@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import image from '../Resources/LoginHandyman.png'
 import Image from 'next/image'
 import { Paper } from '@mui/material'
@@ -8,7 +8,10 @@ import Form2 from './Components/Form2'
 import { connect } from 'react-redux';
 import { RegisterUser } from '../Actions/Registration';
 
-function page({ RegisterUser }) {
+type RegistrationPageProps={
+  RegisterUser:Function
+}
+function page({ RegisterUser}:RegistrationPageProps) {
   const [whichForm,setWhichForm]=React.useState(1)
   const [userRegistrationData,setUserRegistrationData]=React.useState(
     {
@@ -25,9 +28,9 @@ function page({ RegisterUser }) {
     }
   )
 
-  const [ProficiencyDocuments,setProficiencyDocuments]=React.useState<File>(null)
+  const [ProficiencyDocuments,setProficiencyDocuments]=React.useState<File | null>(null)
   const [PropfilePicture,setPropfilePicture]=React.useState<File>()
-  const handleChange = (e) => {
+  const handleChange = (e:ChangeEvent<any>) => {
     if(e.target.name !='userType'){
       setUserRegistrationData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }

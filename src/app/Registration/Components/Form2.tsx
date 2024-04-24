@@ -1,17 +1,47 @@
 import { Button, TextField } from '@mui/material'
 
 import React from 'react'
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { RegisterUser } from '../../Actions/Registration';
+import { useRouter } from 'next/navigation';
 
-
+type Form1Props={
+  setWhichForm:Function,
+  userRegistrationData:{
+      Firstname: string,
+    Middlename: string
+    Lastname: string
+    email: string
+    HomeLocation: string,
+    PhoneNumber: string,
+    DateoFBirth: string,
+    password: string,
+    userType:string,
+  },
+  handleChange:any | null,
+  setUserRegistrationData:Function
+}
+type Reduxstate={
+  Registrations:{
+    customer: {
+      Id: string,
+      Name: string,
+    },
+    token: string,
+    refreshToken: string,
+  }
+}
 function Form2(props:any) {
-
+  const myUser=useSelector((state:Reduxstate)=>state.Registrations)
+  const router = useRouter();
   const [type,setType]=React.useState<String>('client')
-  const [file,setFile]=React.useState<File|null>()
-  const [qualificationDocuments,setqualificationDocuments]=React.useState<File|null>()
+  const [file,setFile]=React.useState<File|null >()
+  const [qualificationDocuments,setqualificationDocuments]=React.useState<FileList|null>()
   props.setUserImage(file)
   props.setqualificationImage(qualificationDocuments)
+  if (myUser.customer.Id) {
+    router.push('/RegistrationCompleteCheckEmail');
+  }
   return (
     <div>
         <p className='font-semibold text-5xl'>Registration</p>
@@ -20,7 +50,7 @@ function Form2(props:any) {
           <input
           type='file'
           name='file'
-          onChange={(e)=>setFile(e?.target?.files[0])}
+          onChange={(e)=>setFile(e?.target?.files && e.target.files[0])}
           className='mt-[4vh] '
         
             /><br/>

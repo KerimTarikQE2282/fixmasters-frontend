@@ -4,10 +4,27 @@ import IconButton from '@mui/material/IconButton';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React from 'react'
 
-function Form1( props:any) {
+type Form1Props={
+    setWhichForm:Function,
+    userRegistrationData:{
+        Firstname: string,
+      Middlename: string
+      Lastname: string
+      email: string
+      HomeLocation: string,
+      PhoneNumber: string,
+      DateoFBirth: string,
+      password: string,
+      userType:string,
+    },
+    handleChange:any,
+    setUserRegistrationData:Function
+}
+
+function Form1( props:Form1Props) {
     const [showPassword, setShowPassword] = React.useState<Boolean>(false);
   
-
+   
     
   
     const handleClickShowPassword = () => {

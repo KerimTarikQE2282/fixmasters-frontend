@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import Image from 'next/image';
 import { Button, Paper, TextField } from '@mui/material';
@@ -8,13 +8,16 @@ import { login } from './Actions/auth';
 import Logo from './Resources/Logo.png';
 import image from './Resources/LoginHandyman.png';
 
-function Page({ login }) {
+type LoginPageProps={
+login:Function
+}
+function Page({login}:LoginPageProps) {
   const [authDetails, setAuthDetails] = useState({
     email: '',
     password: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     setAuthDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -82,7 +85,7 @@ login()
   );
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any) => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user
 });
