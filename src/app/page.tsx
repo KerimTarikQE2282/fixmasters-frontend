@@ -7,11 +7,41 @@ import Link from 'next/link';
 import { login } from './Actions/auth';
 import Logo from './Resources/Logo.png';
 import image from './Resources/LoginHandyman.png';
-
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 type LoginPageProps={
 login:Function
 }
+type redux_User_State = {
+  auth:{
+    user: {
+    name: {
+      UserImage: string;
+      activated: boolean;
+      _id: string;
+      Firstname: string;
+      Middlename: string;
+      Lastname: string;
+      email: string;
+      PhoneNumber: string;
+      HomeLocation: string;
+      DateoFBirth: string;
+      password: string;
+      userType: string;
+    };
+  };
+  accessToken: {
+    accessToken: string;
+  };
+  refreshToken: {
+    refreshToken: string;
+  };
+}
+};
 function Page({login}:LoginPageProps) {
+  const router = useRouter();
+  const myuser=useSelector((state:redux_User_State)=>state.auth)
+  console.log(myuser)
   const [authDetails, setAuthDetails] = useState({
     email: '',
     password: ''
@@ -29,6 +59,9 @@ function Page({login}:LoginPageProps) {
   console.log(authDetails)
 const handleSubmit=()=>{
 login()
+}
+if(myuser.user.name.activated===true && myuser.user.name.userType==='Client'){
+  router.push('/CustomerDashBoard');
 }
   return (
     <div className="bg-orange-100 h-[100vh]">
@@ -86,8 +119,7 @@ login()
 }
 
 const mapStateToProps = (state:any) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
+
 });
 
 export default connect(mapStateToProps, { login })(Page);
