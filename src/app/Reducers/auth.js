@@ -15,12 +15,29 @@ import {
   } from '../Actions/types';
   
   const initialState = {
-    customer: {
-      Id: null,
+    user: {
+      name: {
+        UserImage: "",
+        activated: "",
+        _id: "",
+        Firstname: "",
+        Middlename: "",
+        Lastname: "",
+        email: "",
+        PhoneNumber: "",
+        HomeLocation: "",
+        DateoFBirth: "",
+        password: "",
+        userType: "",
+      }
     },
-    token: null,
-    refreshToken: null,
-  };
+    accessToken: {
+      accessToken: ""
+    },
+    refreshToken: {
+      refreshToken: ""
+    }
+  }
   
   export default function (state = initialState, action) {
     const { type, payload } = action;
@@ -34,13 +51,31 @@ import {
   
       case LOGIN_SUCCESS:
         localStorage.setItem('access', payload.access);
+        console.log(payload)
         return {
           ...state,
-          customer: {
-            Id: payload.Id,
-          },
-          token: payload.AccessToken,
-          refreshToken: payload.RefreshToken,
+          user: {
+      name: {
+        UserImage: payload.your_user.name.UserImage.name ,
+        activated: payload.your_user.name.activated,
+        _id: payload.your_user.name._id,
+        Firstname:payload.your_user.name.Firstname,
+        Middlename: payload.your_user.name.Middlename,
+        Lastname: payload.your_user.name.Lastname,
+        email: payload.your_user.name.email,
+        PhoneNumber: payload.your_user.name.PhoneNumber,
+        HomeLocation: payload.your_user.name.HomeLocation,
+        DateoFBirth: payload.your_user.name.DateoFBirth,
+        password: payload.your_user.name.password,
+        userType: payload.your_user.name.userType,
+      }
+    },
+    accessToken: {
+      accessToken: payload.accessToken.accessToken
+    },
+    refreshToken: {
+      refreshToken: payload.refreshToken.refreshToken
+    }
         };
       case USER_LOADED_SUCCESS:
         return {
