@@ -2,6 +2,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import Image from 'next/image';
+import useLocalStroage from './Hooks/useLocalStorage';
 import { Button, Paper, TextField } from '@mui/material';
 import Link from 'next/link';
 import { login } from './Actions/auth';
@@ -40,6 +41,7 @@ type redux_User_State = {
 };
 function Page({login}:LoginPageProps) {
   const router = useRouter();
+
   const myuser=useSelector((state:redux_User_State)=>state.auth)
   console.log(myuser)
   const [authDetails, setAuthDetails] = useState({
@@ -60,8 +62,12 @@ function Page({login}:LoginPageProps) {
 const handleSubmit=()=>{
 login()
 }
-if(myuser.user.name.activated===true && myuser.user.name.userType==='Client'){
-  router.push('/CustomerDashBoard');
+if(myuser?.user?.name?.activated===true && myuser?.user?.name?.userType==='Client'){
+  localStorage.setItem('FixMasters-User', JSON.stringify(myuser));
+   router.push('/CustomerDashBoard');
+}
+else {
+  console.log('no user')
 }
   return (
     <div className="bg-orange-100 h-[100vh]">
