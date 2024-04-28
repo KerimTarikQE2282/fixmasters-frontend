@@ -2,7 +2,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { connect } from 'react-redux';
 import Image from 'next/image';
-import useLocalStroage from './Hooks/useLocalStorage';
+import useLocalStroage from './Hooks/useSetLocalStorage';
 import { Button, Paper, TextField } from '@mui/material';
 import Link from 'next/link';
 import { login } from './Actions/auth';
@@ -10,6 +10,11 @@ import Logo from './Resources/Logo.png';
 import image from './Resources/LoginHandyman.png';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+const useSetLocalStorage=dynamic(()=>import('./Hooks/useSetLocalStorage'),{
+  ssr:false,
+  // loading: () => <p>Loading...</p>, we can do this if we want a loading to wait 
+})
 type LoginPageProps={
 login:Function
 }
@@ -62,8 +67,12 @@ function Page({login}:LoginPageProps) {
 const handleSubmit=()=>{
 login()
 }
+React.useEffect(() => {
+  localStorage.setItem('User', JSON.stringify(myuser));
+},[myuser])
 if(myuser?.user?.name?.activated===true && myuser?.user?.name?.userType==='Client'){
-  localStorage.setItem('FixMasters-User', JSON.stringify(myuser));
+ 
+ 
    router.push('/CustomerDashBoard');
 }
 else {
